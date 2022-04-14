@@ -71,6 +71,7 @@ function emailValidation() {
   }
 }
 
+// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate
 function birthdateValidation() {
   if (
     birthdateInput.value == "" ||
@@ -94,25 +95,18 @@ function closeModal() {
 
 // validate form function
 function validate() {
-  // (1) Lier les labels aux entrées dans le HTML en utilisant les attributs "for" et "id" dans le code existant. Corriger le code HTML quand nécessaire.
-  // (2) Utiliser du JavaScript pur (pas de jQuery) pour terminer le formulaire :
-  //     Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
-  //     Les données doivent être saisies correctement :
-  //     (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
   if (firstNameValidation() && lastNameValidation() && emailValidation()) {
     return true;
   } else {
     return false;
   }
-  //     (2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
-  //     (3) L'adresse électronique est valide.
   //     (4) Pour le nombre de concours, une valeur numérique est saisie.
   //     (5) Un bouton radio est sélectionné.
   //     (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée.
   //     Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
 }
 
-//********** MODAL EVENTS**************
+//********** EVENTS**************
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -120,23 +114,24 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // close modal event
 modalCloseBtn.addEventListener("click", closeModal);
 
-// validate first name
+// first name event
 firstNameInput.addEventListener("change", () => {
   firstNameValidation,
     displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
 });
 
-// validate last name
+// last name event
 lastNameInput.addEventListener("change", () => {
   lastNameValidation,
     displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
 });
 
-// validate email
+// email event
 emailInput.addEventListener("change", () => {
   emailValidation, displayErrorMsg(emailValidation, emailError, emailErrorMsg);
 });
 
+// birthdate event
 birthdateInput.addEventListener("change", () => {
   birthdateValidation,
     displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
