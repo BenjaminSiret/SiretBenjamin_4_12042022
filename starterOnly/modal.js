@@ -16,27 +16,44 @@ const firstNameInput = document.querySelector("#first");
 const lastNameInput = document.querySelector("#last");
 const emailInput = document.querySelector("#email");
 
-// Regex
+//************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
+//***********ERRORS MESSAGES************
+
+const firstNameErrorMsg =
+  "Veuillez entrer au moins 2 caractères valides pour le champ prénom";
+
+const lastNameErrorMsg =
+  "Veuillez entrer au moins 2 caractères valides pour le champ nom";
+
+const emailErrorMsg = "Veuillez saisir un email valide";
+
+//***********ERRORS SPANS************
+const firstNameError = document.getElementById("firstNameError");
+const lastNameError = document.getElementById("lastNameError");
+const emailError = document.getElementById("emailError");
+
 //***********FUNCTIONS************
 
-function firstNameValidation() {
-  if (!firstNameInput.value.match(nameRegex)) {
-    firstNameInput.style.border = "solid 3px red";
-    alert("Veuillez entrer au moins 2 caractères valides pour ce champ");
-    return false;
+function displayErrorMsg(validation, errorLocation, message) {
+  if (!validation()) {
+    errorLocation.innerHTML = message;
   } else {
-    firstNameInput.style.border = "none";
-    return true;
+    errorLocation.innerHTML = "";
   }
 }
 
+function firstNameValidation() {
+  if (!firstNameInput.value.match(nameRegex)) {
+    return false;
+  } else {
+    return true;
+  }
+}
 function lastNameValidation() {
   if (!lastNameInput.value.match(nameRegex)) {
-    lastNameInput.style.border = "solid 3px red";
-    alert("Veuillez entrer au moins 2 caractères valides pour ce champ");
     return false;
   } else {
     return true;
@@ -45,8 +62,6 @@ function lastNameValidation() {
 
 function emailValidation() {
   if (!emailInput.value.match(emailRegex)) {
-    emailInput.style.border = "solid 3px red";
-    alert("Veuillez entrer une adresse email valide");
     return false;
   } else {
     return true;
@@ -70,6 +85,11 @@ function validate() {
   //     Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
   //     Les données doivent être saisies correctement :
   //     (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
+  if (firstNameValidation() && lastNameValidation() && emailValidation()) {
+    return true;
+  } else {
+    return false;
+  }
   //     (2) Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
   //     (3) L'adresse électronique est valide.
   //     (4) Pour le nombre de concours, une valeur numérique est saisie.
@@ -87,7 +107,10 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalCloseBtn.addEventListener("click", closeModal);
 
 // validate first name
-firstNameInput.addEventListener("change", firstNameValidation);
+firstNameInput.addEventListener("change", () => {
+  firstNameValidation,
+    displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
+});
 
 // validate last name
 lastNameInput.addEventListener("change", lastNameValidation);
