@@ -15,13 +15,14 @@ const modalCloseBtn = document.querySelector(".close");
 const firstNameInput = document.querySelector("#first");
 const lastNameInput = document.querySelector("#last");
 const emailInput = document.querySelector("#email");
+const birthdateInput = document.querySelector("#birthdate");
 
 //************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+const birthdateRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
 
 //***********ERRORS MESSAGES************
-
 const firstNameErrorMsg =
   "Veuillez entrer au moins 2 caractères valides pour le champ prénom";
 
@@ -30,13 +31,15 @@ const lastNameErrorMsg =
 
 const emailErrorMsg = "Veuillez saisir un email valide";
 
+const birthdateErrorMsg = "Veuillez entrer une date de naissance";
+
 //***********ERRORS SPANS************
 const firstNameError = document.getElementById("firstNameError");
 const lastNameError = document.getElementById("lastNameError");
 const emailError = document.getElementById("emailError");
+const birthdateError = document.getElementById("birthdateError");
 
 //***********FUNCTIONS************
-
 function displayErrorMsg(validation, errorLocation, message) {
   if (!validation()) {
     errorLocation.innerHTML = message;
@@ -62,6 +65,17 @@ function lastNameValidation() {
 
 function emailValidation() {
   if (!emailInput.value.match(emailRegex)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function birthdateValidation() {
+  if (
+    birthdateInput.value == "" ||
+    !birthdateInput.value.match(birthdateRegex)
+  ) {
     return false;
   } else {
     return true;
@@ -113,7 +127,17 @@ firstNameInput.addEventListener("change", () => {
 });
 
 // validate last name
-lastNameInput.addEventListener("change", lastNameValidation);
+lastNameInput.addEventListener("change", () => {
+  lastNameValidation,
+    displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
+});
 
 // validate email
-emailInput.addEventListener("change", emailValidation);
+emailInput.addEventListener("change", () => {
+  emailValidation, displayErrorMsg(emailValidation, emailError, emailErrorMsg);
+});
+
+birthdateInput.addEventListener("change", () => {
+  birthdateValidation,
+    displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
+});
