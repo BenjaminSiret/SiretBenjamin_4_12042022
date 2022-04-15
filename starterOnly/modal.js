@@ -16,11 +16,23 @@ const firstNameInput = document.querySelector("#first");
 const lastNameInput = document.querySelector("#last");
 const emailInput = document.querySelector("#email");
 const birthdateInput = document.querySelector("#birthdate");
+const quantityInput = document.querySelector("#quantity");
+
+// En fin de projet, envisager la possibilité de créer un array d'inputs pour itérer dessus afin de valider. Ou un objet JS avec les regex associées
+
+// const inputs = [
+//   firstNameInput,
+//   lastNameInput,
+//   emailInput,
+//   birdthdateInput,
+//   quantityInput,
+// ];
 
 //************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 const birthdateRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+const quantityRegex = /^(0|[1-9][0-9]*)$/;
 
 //***********ERRORS MESSAGES************
 const firstNameErrorMsg =
@@ -31,18 +43,34 @@ const lastNameErrorMsg =
 
 const emailErrorMsg = "Veuillez saisir un email valide";
 
-const birthdateErrorMsg = "Veuillez entrer une date de naissance";
+const birthdateErrorMsg = "Veuillez entrer une date de naissance valide";
+
+const quantityErrorMsg = "Veuillez saisir une valeur numérique valide";
 
 //***********ERRORS SPANS************
 const firstNameError = document.getElementById("firstNameError");
 const lastNameError = document.getElementById("lastNameError");
 const emailError = document.getElementById("emailError");
 const birthdateError = document.getElementById("birthdateError");
+const quantityError = document.getElementById("quantityError");
 
 //***********FUNCTIONS************
+// launch modal function
+function launchModal() {
+  modalbg.style.display = "block";
+}
+
+// close modal function
+function closeModal() {
+  modalbg.style.display = "none";
+}
+
+// display error message function
 function displayErrorMsg(validation, errorLocation, message) {
   if (!validation()) {
     errorLocation.innerHTML = message;
+    errorLocation.style.backgroundColor = "red";
+    errorLocation.style.fontSize = "16px";
   } else {
     errorLocation.innerHTML = "";
   }
@@ -71,7 +99,7 @@ function emailValidation() {
   }
 }
 
-// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate
+// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default
 function birthdateValidation() {
   if (
     birthdateInput.value == "" ||
@@ -83,23 +111,23 @@ function birthdateValidation() {
   }
 }
 
-// launch modal function
-function launchModal() {
-  modalbg.style.display = "block";
+function quantityValidation() {
+  if (!quantityInput.value.match(quantityRegex)) {
+    return false;
+  } else {
+    return true;
+  }
 }
-
-// close modal function
-function closeModal() {
-  modalbg.style.display = "none";
-}
-
 // validate form function
 function validate() {
-  if (firstNameValidation() && lastNameValidation() && emailValidation()) {
-    return true;
-  } else {
-    return false;
-  }
+  // TODO ajouter la fonction displayErrorMsg pour tous les messages d'erreurs
+  return (
+    firstNameValidation() &&
+    lastNameValidation() &&
+    emailValidation() &&
+    birthdateValidation() &&
+    quantityValidation()
+  );
   //     (4) Pour le nombre de concours, une valeur numérique est saisie.
   //     (5) Un bouton radio est sélectionné.
   //     (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée.
@@ -135,4 +163,9 @@ emailInput.addEventListener("change", () => {
 birthdateInput.addEventListener("change", () => {
   birthdateValidation,
     displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
+});
+
+quantityInput.addEventListener("change", () => {
+  quantityValidation,
+    displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
 });
