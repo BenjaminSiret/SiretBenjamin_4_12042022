@@ -77,47 +77,39 @@ function displayErrorMsg(validation, errorLocation, message) {
 }
 
 function firstNameValidation() {
-  if (!firstNameInput.value.match(nameRegex)) {
-    return false;
-  } else {
-    return true;
-  }
+  return nameRegex.test(firstNameInput.value);
 }
+
 function lastNameValidation() {
-  if (!lastNameInput.value.match(nameRegex)) {
-    return false;
-  } else {
-    return true;
-  }
+  return nameRegex.test(lastNameInput.value);
 }
 
 function emailValidation() {
-  if (!emailInput.value.match(emailRegex)) {
-    return false;
-  } else {
-    return true;
-  }
+  return emailRegex.test(emailInput.value);
 }
 
 // TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default
 function birthdateValidation() {
-  if (
-    birthdateInput.value == "" ||
-    !birthdateInput.value.match(birthdateRegex)
-  ) {
-    return false;
-  } else {
-    return true;
-  }
+  return (
+    !birthdateInput.value == "" && birthdateRegex.test(birthdateInput.value)
+  );
 }
 
 function quantityValidation() {
-  if (!quantityInput.value.match(quantityRegex)) {
-    return false;
-  } else {
-    return true;
-  }
+  return quantityRegex.test(quantityInput.value);
 }
+
+function radioValidation() {
+  const radios = document.getElementsByName("location");
+  let radioChecked = false;
+  for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      radioChecked = true;
+    }
+  }
+  return radioChecked;
+}
+
 // validate form function
 function validate() {
   // TODO ajouter la fonction displayErrorMsg pour tous les messages d'erreurs
@@ -169,3 +161,5 @@ quantityInput.addEventListener("change", () => {
   quantityValidation,
     displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
 });
+
+//**************TEST*****************/
