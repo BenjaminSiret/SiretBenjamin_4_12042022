@@ -17,16 +17,8 @@ const lastNameInput = document.querySelector("#last");
 const emailInput = document.querySelector("#email");
 const birthdateInput = document.querySelector("#birthdate");
 const quantityInput = document.querySelector("#quantity");
-
-// En fin de projet, envisager la possibilité de créer un array d'inputs pour itérer dessus afin de valider. Ou un objet JS avec les regex associées
-
-// const inputs = [
-//   firstNameInput,
-//   lastNameInput,
-//   emailInput,
-//   birdthdateInput,
-//   quantityInput,
-// ];
+const locationInputs = document.getElementsByName("location");
+const checkBox1 = document.getElementById("checkbox1");
 
 //************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
@@ -47,12 +39,18 @@ const birthdateErrorMsg = "Veuillez entrer une date de naissance valide";
 
 const quantityErrorMsg = "Veuillez saisir une valeur numérique valide";
 
+const locationErrorMsg = "Veuillez sélectionner une ville";
+
+const checkBox1ErrorMsg = "Veuillez accepter les conditions générales";
+
 //***********ERRORS SPANS************
 const firstNameError = document.getElementById("firstNameError");
 const lastNameError = document.getElementById("lastNameError");
 const emailError = document.getElementById("emailError");
 const birthdateError = document.getElementById("birthdateError");
 const quantityError = document.getElementById("quantityError");
+const locationError = document.getElementById("locationError");
+const checkBox1Error = document.getElementById("checkbox1Error");
 
 //***********FUNCTIONS************
 // launch modal function
@@ -99,26 +97,32 @@ function quantityValidation() {
   return quantityRegex.test(quantityInput.value);
 }
 
-function radioValidation() {
-  const radios = document.getElementsByName("location");
+function locationValidation() {
+  const locations = document.getElementsByName("location");
   let radioChecked = false;
-  for (let i = 0; i < radios.length; i++) {
-    if (radios[i].checked) {
+  for (let i = 0; i < locations.length; i++) {
+    if (locations[i].checked) {
       radioChecked = true;
     }
   }
   return radioChecked;
 }
 
+function checkBox1Validation() {
+  return checkBox1.checked;
+}
+
 // validate form function
 function validate() {
   // TODO ajouter la fonction displayErrorMsg pour tous les messages d'erreurs
+
   return (
     firstNameValidation() &&
     lastNameValidation() &&
     emailValidation() &&
     birthdateValidation() &&
-    quantityValidation()
+    quantityValidation() &&
+    locationValidation()
   );
   //     (4) Pour le nombre de concours, une valeur numérique est saisie.
   //     (5) Un bouton radio est sélectionné.
@@ -157,9 +161,18 @@ birthdateInput.addEventListener("change", () => {
     displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
 });
 
+// quantity event
 quantityInput.addEventListener("change", () => {
   quantityValidation,
     displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
+});
+
+// location => compléter le display du message d'erreur
+
+// checkbox1
+checkBox1.addEventListener("change", () => {
+  checkBox1Validation,
+    displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
 });
 
 //**************TEST*****************/
