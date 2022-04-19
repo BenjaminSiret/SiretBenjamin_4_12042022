@@ -22,7 +22,7 @@ const checkBox1 = document.getElementById("checkbox1");
 
 //************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
-const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const birthdateRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
 const quantityRegex = /^(0|[1-9][0-9]*)$/;
 
@@ -88,9 +88,7 @@ function emailValidation() {
 
 // TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default
 function birthdateValidation() {
-  return (
-    !birthdateInput.value == "" && birthdateRegex.test(birthdateInput.value)
-  );
+  return birthdateRegex.test(birthdateInput.value);
 }
 
 function quantityValidation() {
@@ -114,20 +112,39 @@ function checkBox1Validation() {
 
 // validate form function
 function validate() {
-  // TODO ajouter la fonction displayErrorMsg pour tous les messages d'erreurs
+  if (!firstNameValidation()) {
+    console.log("first");
+    displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
+    return false;
+  } else if (!lastNameValidation()) {
+    console.log("last");
+    displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
+    return false;
+  } else if (!emailValidation()) {
+    console.log("email");
+    displayErrorMsg(emailValidation, emailError, emailErrorMsg);
+    return false;
+  } else if (!birthdateValidation()) {
+    console.log("anniv");
+    displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
+    return false;
+  } else if (!quantityValidation()) {
+    console.log("quantity");
+    displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
+    return false;
+  } else if (!locationValidation()) {
+    console.log("location");
+    displayErrorMsg(locationValidation, locationError, locationErrorMsg);
+    return false;
+  } else if (!checkBox1Validation()) {
+    console.log("checkbox");
+    displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
+    return false;
+  } else {
+    return true;
+  }
 
-  return (
-    firstNameValidation() &&
-    lastNameValidation() &&
-    emailValidation() &&
-    birthdateValidation() &&
-    quantityValidation() &&
-    locationValidation()
-  );
-  //     (4) Pour le nombre de concours, une valeur numérique est saisie.
-  //     (5) Un bouton radio est sélectionné.
-  //     (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée.
-  //     Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
+  // TODO => Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
 }
 
 //********** EVENTS**************
@@ -140,8 +157,7 @@ modalCloseBtn.addEventListener("click", closeModal);
 
 // first name event
 firstNameInput.addEventListener("change", () => {
-  firstNameValidation,
-    displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
+  displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
 });
 
 // last name event
@@ -168,7 +184,11 @@ quantityInput.addEventListener("change", () => {
 });
 
 // location => compléter le display du message d'erreur
-
+locationInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    displayErrorMsg(locationValidation, locationError, locationErrorMsg);
+  });
+});
 // checkbox1
 checkBox1.addEventListener("change", () => {
   checkBox1Validation,
