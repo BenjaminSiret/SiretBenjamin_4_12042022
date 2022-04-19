@@ -64,9 +64,9 @@ function closeModal() {
 }
 
 // display error message function
-function displayErrorMsg(validation, errorLocation, message) {
+function displayErrorMsg(validation, errorLocation, errorMessage) {
   if (!validation()) {
-    errorLocation.innerHTML = message;
+    errorLocation.innerHTML = errorMessage;
     errorLocation.style.backgroundColor = "red";
     errorLocation.style.fontSize = "16px";
   } else {
