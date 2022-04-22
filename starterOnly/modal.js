@@ -86,7 +86,7 @@ function emailValidation() {
   return emailRegex.test(emailInput.value);
 }
 
-// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default
+// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default ?
 function birthdateValidation() {
   return birthdateRegex.test(birthdateInput.value);
 }
@@ -98,11 +98,11 @@ function quantityValidation() {
 function locationValidation() {
   const locations = document.getElementsByName("location");
   let radioChecked = false;
-  for (let i = 0; i < locations.length; i++) {
-    if (locations[i].checked) {
+  locations.forEach((location) => {
+    if (location.checked) {
       radioChecked = true;
     }
-  }
+  });
   return radioChecked;
 }
 
