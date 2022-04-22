@@ -209,4 +209,8 @@ checkBox1.addEventListener("input", () => {
 });
 
 // submit event
-submitBtn.addEventListener("click", displayErrors);
+// submitBtn.addEventListener("click", displayErrors);
+
+submitBtn.addEventListener("click", () => {
+  document.querySelector(".modal-body").innerHTML = "coucou";
+});

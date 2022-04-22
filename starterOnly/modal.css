@@ -535,7 +535,7 @@ footer {
   }
 }
 
-.form-thanks {
+/* .form-thanks {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -556,4 +556,4 @@ footer {
   position: absolute;
   bottom: 20px;
   right: 160px;
-}
+} */
