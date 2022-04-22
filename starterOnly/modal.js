@@ -1,24 +1,16 @@
-function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-
 //*************DOM Elements****************
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCloseBtn = document.querySelector(".close");
-const firstNameInput = document.querySelector("#first");
-const lastNameInput = document.querySelector("#last");
-const emailInput = document.querySelector("#email");
-const birthdateInput = document.querySelector("#birthdate");
-const quantityInput = document.querySelector("#quantity");
+const firstNameInput = document.getElementById("first");
+const lastNameInput = document.getElementById("last");
+const emailInput = document.getElementById("email");
+const birthdateInput = document.getElementById("birthdate");
+const quantityInput = document.getElementById("quantity");
 const locationInputs = document.getElementsByName("location");
 const checkBox1 = document.getElementById("checkbox1");
+const submitBtn = document.querySelector(".btn-submit");
 
 //************ REGEX ****************
 const nameRegex = /^[A-Za-zÀ-ÿ-]{2,}$/i;
@@ -43,7 +35,17 @@ const locationErrorMsg = "Veuillez sélectionner une ville";
 
 const checkBox1ErrorMsg = "Veuillez accepter les conditions générales";
 
-//***********ERRORS SPANS************
+const errorsMessages = [
+  firstNameErrorMsg,
+  lastNameErrorMsg,
+  emailErrorMsg,
+  birthdateErrorMsg,
+  quantityErrorMsg,
+  locationErrorMsg,
+  checkBox1ErrorMsg,
+];
+
+//***********ERRORS LOCATIONS************
 const firstNameError = document.getElementById("firstNameError");
 const lastNameError = document.getElementById("lastNameError");
 const emailError = document.getElementById("emailError");
@@ -52,7 +54,37 @@ const quantityError = document.getElementById("quantityError");
 const locationError = document.getElementById("locationError");
 const checkBox1Error = document.getElementById("checkbox1Error");
 
+const errorsLocations = [
+  firstNameError,
+  lastNameError,
+  emailError,
+  birthdateError,
+  quantityError,
+  locationError,
+  checkBox1Error,
+];
+
+//***********VALIDATIONS**********
+const validations = [
+  firstNameValidation,
+  lastNameValidation,
+  emailValidation,
+  birthdateValidation,
+  quantityValidation,
+  locationValidation,
+  checkBox1Validation,
+];
+
 //***********FUNCTIONS************
+// edit nav function
+function editNav() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
 // launch modal function
 function launchModal() {
   modalbg.style.display = "block";
@@ -63,7 +95,7 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// display error message function
+// display error message
 function displayErrorMsg(validation, errorLocation, errorMessage) {
   if (!validation()) {
     errorLocation.innerHTML = errorMessage;
@@ -74,6 +106,16 @@ function displayErrorMsg(validation, errorLocation, errorMessage) {
   }
 }
 
+// display all errors messages
+function displayErrors() {
+  if (!validate()) {
+    for (let i = 0; i < validations.length; i++) {
+      displayErrorMsg(validations[i], errorsLocations[i], errorsMessages[i]);
+    }
+  }
+}
+
+// validations functions
 function firstNameValidation() {
   return nameRegex.test(firstNameInput.value);
 }
@@ -86,7 +128,6 @@ function emailValidation() {
   return emailRegex.test(emailInput.value);
 }
 
-// TODO: gérer le fait qu'on peut encore passer à la case suivante sans entrer de birthdate ; regarder du côté de prevent default ?
 function birthdateValidation() {
   return birthdateRegex.test(birthdateInput.value);
 }
@@ -112,39 +153,15 @@ function checkBox1Validation() {
 
 // validate form function
 function validate() {
-  if (!firstNameValidation()) {
-    console.log("first");
-    displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
-    return false;
-  } else if (!lastNameValidation()) {
-    console.log("last");
-    displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
-    return false;
-  } else if (!emailValidation()) {
-    console.log("email");
-    displayErrorMsg(emailValidation, emailError, emailErrorMsg);
-    return false;
-  } else if (!birthdateValidation()) {
-    console.log("anniv");
-    displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
-    return false;
-  } else if (!quantityValidation()) {
-    console.log("quantity");
-    displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
-    return false;
-  } else if (!locationValidation()) {
-    console.log("location");
-    displayErrorMsg(locationValidation, locationError, locationErrorMsg);
-    return false;
-  } else if (!checkBox1Validation()) {
-    console.log("checkbox");
-    displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
-    return false;
-  } else {
-    return true;
-  }
-
-  // TODO => Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
+  return (
+    firstNameValidation() &&
+    lastNameValidation() &&
+    emailValidation() &&
+    birthdateValidation() &&
+    quantityValidation() &&
+    locationValidation() &&
+    checkBox1Validation()
+  );
 }
 
 //********** EVENTS**************
@@ -162,37 +179,34 @@ firstNameInput.addEventListener("input", () => {
 
 // last name event
 lastNameInput.addEventListener("input", () => {
-  lastNameValidation,
-    displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
+  displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
 });
 
 // email event
 emailInput.addEventListener("input", () => {
-  emailValidation, displayErrorMsg(emailValidation, emailError, emailErrorMsg);
+  displayErrorMsg(emailValidation, emailError, emailErrorMsg);
 });
 
 // birthdate event
 birthdateInput.addEventListener("input", () => {
-  birthdateValidation,
-    displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
+  displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
 });
 
 // quantity event
 quantityInput.addEventListener("input", () => {
-  quantityValidation,
-    displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
+  displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
 });
 
-// location => compléter le display du message d'erreur
+// location event
 locationInputs.forEach((input) => {
   input.addEventListener("input", () => {
     displayErrorMsg(locationValidation, locationError, locationErrorMsg);
   });
 });
-// checkbox1
+// checkbox1 event
 checkBox1.addEventListener("input", () => {
-  checkBox1Validation,
-    displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
+  displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
 });
 
-//**************TEST*****************/
+// submit event
+submitBtn.addEventListener("click", displayErrors);
