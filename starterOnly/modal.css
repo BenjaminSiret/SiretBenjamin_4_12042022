@@ -534,3 +534,26 @@ footer {
     opacity: 1;
   }
 }
+
+.form-thanks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding-top: 40px;
+  background-color: #232323;
+  color: white;
+  border-radius: 10px;
+  width: 45%;
+  height: 600px;
+}
+
+.form-thanks h2 {
+  text-align: center;
+}
+
+.form-thanks button {
+  position: absolute;
+  bottom: 20px;
+  right: 160px;
+}

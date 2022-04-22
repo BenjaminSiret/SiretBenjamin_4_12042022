@@ -2,7 +2,7 @@
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const modalCloseBtn = document.querySelector(".close");
+const modalCloseBtns = document.querySelectorAll("#modal-close");
 const firstNameInput = document.getElementById("first");
 const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
@@ -170,7 +170,7 @@ function validate() {
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-modalCloseBtn.addEventListener("click", closeModal);
+modalCloseBtns.forEach((btn) => btn.addEventListener("click", closeModal));
 
 // first name event
 firstNameInput.addEventListener("input", () => {
