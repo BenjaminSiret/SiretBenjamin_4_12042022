@@ -156,41 +156,41 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalCloseBtn.addEventListener("click", closeModal);
 
 // first name event
-firstNameInput.addEventListener("change", () => {
+firstNameInput.addEventListener("input", () => {
   displayErrorMsg(firstNameValidation, firstNameError, firstNameErrorMsg);
 });
 
 // last name event
-lastNameInput.addEventListener("change", () => {
+lastNameInput.addEventListener("input", () => {
   lastNameValidation,
     displayErrorMsg(lastNameValidation, lastNameError, lastNameErrorMsg);
 });
 
 // email event
-emailInput.addEventListener("change", () => {
+emailInput.addEventListener("input", () => {
   emailValidation, displayErrorMsg(emailValidation, emailError, emailErrorMsg);
 });
 
 // birthdate event
-birthdateInput.addEventListener("change", () => {
+birthdateInput.addEventListener("input", () => {
   birthdateValidation,
     displayErrorMsg(birthdateValidation, birthdateError, birthdateErrorMsg);
 });
 
 // quantity event
-quantityInput.addEventListener("change", () => {
+quantityInput.addEventListener("input", () => {
   quantityValidation,
     displayErrorMsg(quantityValidation, quantityError, quantityErrorMsg);
 });
 
 // location => compléter le display du message d'erreur
 locationInputs.forEach((input) => {
-  input.addEventListener("change", () => {
+  input.addEventListener("input", () => {
     displayErrorMsg(locationValidation, locationError, locationErrorMsg);
   });
 });
 // checkbox1
-checkBox1.addEventListener("change", () => {
+checkBox1.addEventListener("input", () => {
   checkBox1Validation,
     displayErrorMsg(checkBox1Validation, checkBox1Error, checkBox1ErrorMsg);
 });
