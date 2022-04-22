@@ -67,8 +67,8 @@ function closeModal() {
 function displayErrorMsg(validation, errorLocation, errorMessage) {
   if (!validation()) {
     errorLocation.innerHTML = errorMessage;
-    errorLocation.style.backgroundColor = "red";
-    errorLocation.style.fontSize = "16px";
+    errorLocation.style.color = "red";
+    errorLocation.style.fontSize = "14px";
   } else {
     errorLocation.innerHTML = "";
   }
