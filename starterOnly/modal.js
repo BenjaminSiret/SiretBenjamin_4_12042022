@@ -87,7 +87,6 @@ function editNav() {
 }
 // launch modal function
 function launchModal() {
-  document.getElementById("myForm").reset();
   modalbg.style.display = "block";
 }
 
@@ -210,6 +209,7 @@ checkBox1.addEventListener("input", () => {
 // submit event
 submitBtn.addEventListener("click", () => {
   if (validate()) {
+    document.getElementById("myForm").reset();
     document.querySelector(
       ".modal-body"
     ).innerHTML = `<p>Merci pour votre inscription !</p></br><button class="btn-submit" id="validation-message">Fermer</button>`;
