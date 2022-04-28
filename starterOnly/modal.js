@@ -2,7 +2,7 @@
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const modalCloseBtns = document.querySelectorAll("#modal-close");
+const modalCloseBtns = document.querySelectorAll(".close");
 const firstNameInput = document.getElementById("first");
 const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
@@ -87,6 +87,7 @@ function editNav() {
 }
 // launch modal function
 function launchModal() {
+  document.getElementById("myForm").reset();
   modalbg.style.display = "block";
 }
 
@@ -108,10 +109,8 @@ function displayErrorMsg(validation, errorLocation, errorMessage) {
 
 // display all errors messages
 function displayErrors() {
-  if (!validate()) {
-    for (let i = 0; i < validations.length; i++) {
-      displayErrorMsg(validations[i], errorsLocations[i], errorsMessages[i]);
-    }
+  for (let i = 0; i < validations.length; i++) {
+    displayErrorMsg(validations[i], errorsLocations[i], errorsMessages[i]);
   }
 }
 
@@ -209,8 +208,17 @@ checkBox1.addEventListener("input", () => {
 });
 
 // submit event
-// submitBtn.addEventListener("click", displayErrors);
-
 submitBtn.addEventListener("click", () => {
-  document.querySelector(".modal-body").innerHTML = "coucou";
+  if (validate()) {
+    document.querySelector(
+      ".modal-body"
+    ).innerHTML = `<p>Merci pour votre inscription !</p></br><button class="btn-submit" id="validation-message">Fermer</button>`;
+    document
+      .getElementById("validation-message")
+      .addEventListener("click", () => {
+        closeModal;
+        location.reload();
+      });
+  }
+  displayErrors();
 });

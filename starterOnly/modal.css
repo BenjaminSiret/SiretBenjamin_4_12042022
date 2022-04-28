@@ -228,12 +228,7 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/*
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -323,6 +318,7 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
+
 .btn-submit,
 .btn-signup {
   background: #fe142f;
@@ -534,26 +530,3 @@ footer {
     opacity: 1;
   }
 }
-
-/* .form-thanks {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  padding-top: 40px;
-  background-color: #232323;
-  color: white;
-  border-radius: 10px;
-  width: 45%;
-  height: 600px;
-}
-
-.form-thanks h2 {
-  text-align: center;
-}
-
-.form-thanks button {
-  position: absolute;
-  bottom: 20px;
-  right: 160px;
-} */
