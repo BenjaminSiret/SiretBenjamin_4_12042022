@@ -64,7 +64,7 @@ const errorsLocations = [
   checkBox1Error,
 ];
 
-//***********VALIDATIONS**********
+//***********VALIDATIONS ARRAY**********
 const validations = [
   firstNameValidation,
   lastNameValidation,
@@ -149,7 +149,7 @@ function checkBox1Validation() {
   return checkBox1.checked;
 }
 
-// validate form function
+// form validation function
 function validate() {
   return (
     firstNameValidation() &&
@@ -211,8 +211,10 @@ submitBtn.addEventListener("click", () => {
   if (validate()) {
     document.getElementById("myForm").reset();
     document.querySelector(
-      ".modal-body"
-    ).innerHTML = `<p>Merci pour votre inscription !</p></br><button class="btn-submit" id="validation-message">Fermer</button>`;
+      ".content"
+    ).innerHTML = `<div class="modal-body"><p>Merci pour votre inscription !</p></br><button class="btn-submit" id="validation-message">Fermer</button></div>`;
+    document.querySelector(".content").className = "validation-modal";
+    document.querySelector(".modal-body").className = "validation-body";
     document
       .getElementById("validation-message")
       .addEventListener("click", () => {
