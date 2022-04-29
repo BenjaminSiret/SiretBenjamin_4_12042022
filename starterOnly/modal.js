@@ -2,7 +2,7 @@
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const modalCloseBtns = document.querySelectorAll(".close");
+const modalCloseBtn = document.querySelector(".close");
 const firstNameInput = document.getElementById("first");
 const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
@@ -168,7 +168,7 @@ function validate() {
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-modalCloseBtns.forEach((btn) => btn.addEventListener("click", closeModal));
+modalCloseBtn.addEventListener("click", closeModal);
 
 // first name event
 firstNameInput.addEventListener("input", () => {
@@ -212,15 +212,17 @@ submitBtn.addEventListener("click", () => {
     document.getElementById("myForm").reset();
     document.querySelector(
       ".content"
-    ).innerHTML = `<div class="modal-body"><p>Merci pour votre inscription !</p></br><button class="btn-submit" id="validation-message">Fermer</button></div>`;
+    ).innerHTML = `<div class="modal-body"><span class="close" id="modal-close"></span><p class="validation-msg">Merci pour votre inscription</p><button class="btn-submit validation-btn" id="validation-btn">Fermer</button></div>`;
     document.querySelector(".content").className = "validation-modal";
     document.querySelector(".modal-body").className = "validation-body";
-    document
-      .getElementById("validation-message")
-      .addEventListener("click", () => {
-        closeModal;
-        location.reload();
-      });
+    document.getElementById("validation-btn").addEventListener("click", () => {
+      closeModal;
+      location.reload();
+    });
+    document.getElementById("modal-close").addEventListener("click", () => {
+      closeModal;
+      location.reload();
+    });
   }
   displayErrors();
 });
